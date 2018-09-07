@@ -1,0 +1,125 @@
+/**
+ * 封装的CSS变量及方法
+ */
+// 字体
+$root-size = 100px
+// 最大宽度
+$min-width = 320px
+$max-width = 414px
+// 文字色
+$color-txt1 = #4A4E59
+$color-txt2 = #9297A6
+$color-txt3 = #bfbfbf
+// 通用色
+$color-red = #F00
+$color-FFF= #FFF
+$color-active = #EEE
+$color-green = #03BF6D         // 绿色
+$color-greenLight = #E1F7ED    // 淡绿色
+$color-orange = #FF614C        // 橙色
+$color-orangeLight = #FF862D   // 浅橙色
+$color-gray = #626980          // 深灰色
+$color-grayMiddle = #e3e6e7    // 中灰
+$color-grayLight = #F0F1F5     // 浅灰色
+// 特殊色
+$color-spc1 = yellow
+$color-spc2 = blue
+$color-active = #EEE        // 触发底色
+$color-lianjia = #00AE66    // 链家绿色
+// body 底色
+$color-body = #eff0f5
+// 边框
+$color-border = red
+// 将 px 转换成 rem
+Px2rem(arguments=12)
+  (arguments / $root-size)rem
+// 截字
+CutTxt()
+  text-overflow ellipsis
+  overflow hidden
+  white-space nowrap
+CutP(arguments = 2)
+	display -webkit-box !important
+	overflow hidden
+	text-overflow ellipsis
+	word-break break-all
+	-webkit-box-orient vertical
+	-webkit-line-clamp arguments
+// 1px border
+Borders(path=all,width=1px,color=$color-border,style=solid, radius=0)
+  if path==none
+    border none
+  else if path==all
+    @media only screen and (-webkit-min-device-pixel-ratio: 1) and (-webkit-max-device-pixel-ratio: 1.9)
+      border width style color
+      border-radius radius
+      box-sizing border-box
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) and (-webkit-max-device-pixel-ratio: 2.9)
+      position relative
+      transform scale(1)
+      &:before
+        border width style color
+        border-radius radius
+        box-sizing border-box
+        content ''
+        transform-origin 0 0
+        width 200%
+        height 200%
+        transform scale(.5, .5)
+        position absolute
+        left 0
+        top 0
+        z-index -1
+    @media only screen and (-webkit-min-device-pixel-ratio: 3)
+      position relative
+      transform scale(1)
+      &:before
+        border width style color
+        border-radius radius
+        box-sizing border-box
+        content ''
+        transform-origin 0 0
+        width 300%
+        height 300%
+        transform scale(.33333333, .33333333)
+        position absolute
+        left 0
+        top 0
+        z-index -1
+  else
+    @media only screen and (-webkit-min-device-pixel-ratio: 1) and (-webkit-max-device-pixel-ratio: 1.9)
+      border-{path} width style color
+      border-radius radius
+      box-sizing border-box
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) and (-webkit-max-device-pixel-ratio: 2.9)
+      position relative
+      transform scale(1)
+      &:before
+        border-{path} width style color
+        border-radius radius
+        width 200%
+        height 200%
+        position absolute
+        box-sizing border-box
+        content ''
+        transform-origin 0 0
+        transform scale(.5, .5)
+        left 0
+        top 0
+        z-index -1
+    @media only screen and (-webkit-min-device-pixel-ratio: 3)
+      position relative
+      transform scale(1)
+      &:before
+        border-{path} width style color
+        border-radius radius
+        width 300%
+        height 300%
+        position absolute
+        box-sizing border-box
+        content ''
+        transform-origin 0 0
+        transform scale(.33333333, .33333333)
+        left 0
+        top 0
+        z-index -1

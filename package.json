@@ -1,0 +1,43 @@
+{
+  "name": "link-fangyuan-app",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=development redskull2 start --dashboard false --extra true",
+    "build": "NODE_ENV=production redskull2 build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^8.2.0",
+    "axios": "^0.18.0",
+    "babel-core": "^6.26.0",
+    "babel-plugin-component": "^1.1.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "mint-ui": "^2.2.13",
+    "stylus-loader": "^3.0.2",
+    "vue": "^2.5.16",
+    "vue-loader": "^11.3.4",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "^2.5.16"
+  },
+  "redskull": {
+    "port": 7008,
+    "src": "./",
+    "dist": "./dist",
+    "deps": "./deps",
+    "openBrowser": false
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}

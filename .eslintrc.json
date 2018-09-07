@@ -1,0 +1,35 @@
+{
+  "root": true,
+  "extends": [
+    "airbnb-base",
+    "plugin:vue/essential"
+  ],
+  "plugins": [
+    "vue"
+  ],
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jquery": true
+  },
+  "rules": {
+    "no-console":"off",
+    "no-tabs":"off",
+    "indent": ["error", 2],
+    "semi": ["error", "never"],
+    "curly":["error","all"],
+    "import/no-extraneous-dependencies":"off",
+    "import/no-unresolved":"off",
+    "import/extensions":"off",
+    "no-param-reassign": ["error", {"props": false}]
+  }
+}
