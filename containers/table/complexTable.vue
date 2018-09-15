@@ -23,31 +23,32 @@
       fit
       highlight-current-row
       style="width: 100%;min-height:560px;">
-      <!-- <el-table-column label="id" align="center" width="65">
-        <template slot-scope="scope">
-          <span>{{ scope.row.id }}</span>
-        </template>
-      </el-table-column> -->
-      <el-table-column label="房源地址" width="200" align="center">
-        <template slot-scope="scope">
-          <a href="" target="_blank">{{ scope.row.address }}</a>
-        </template>
-      </el-table-column>
-      <el-table-column label="类型" width="100">
-        <template slot-scope="scope">
-          <span >{{ scope.row.type }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="租客信息" width="200" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.infoOfrent }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="表号" width="100" align="center">
+      <!-- <el-table-column label="id" align="center" width="65"> -->
+        <!-- <template slot-scope="scope">
+          <span>{{ scope.row.index }}</span>
+        </template> -->
+      <!-- </el-table-column> -->
+      <el-table-column label="表号" width="150" align="center">
         <template slot-scope="scope">
           <span style="color:red;">{{ scope.row.meterId }}</span>
         </template>
       </el-table-column>
+      <el-table-column label="房源地址" min-width="300" align="center">
+        <template slot-scope="scope">
+          <a :href="`#/meters/${scope.row.meterId}`" target="_blank">{{ scope.row.address }}</a>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column label="类型" width="100">
+        <template slot-scope="scope">
+          <span >{{ scope.row.type }}</span>
+        </template>
+      </el-table-column> -->
+      <!-- <el-table-column label="租客信息" width="200" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.infoOfrent }}</span>
+        </template> -->
+      <!-- </el-table-column> -->
+      
       <el-table-column label="电价" width="100">
         <template slot-scope="scope">
           <span >{{scope.row.price}}</span>
@@ -101,12 +102,12 @@ import MeterEdit from './MeterEdit'
 import StatusOfSetting from './StatusOfSetting'
 
 const wifiOptions = [
-  { key: 1, display_name: '链接中' },
+  { key: 1, display_name: '已连接' },
   { key: 0, display_name: '已断开' },
 ]
 
 const ElectrifyOptions = [
-  { key: 1, display_name: '链接中' },
+  { key: 1, display_name: '已通电' },
   { key: 0, display_name: '已断开' },
 ]
 

@@ -21,6 +21,7 @@
     "babel-preset-latest": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "css-loader": "^0.28.11",
+    "echarts": "^4.1.0",
     "element-ui": "^2.4.6",
     "eslint-plugin-vue": "^4.7.1",
     "mint-ui": "^2.2.13",

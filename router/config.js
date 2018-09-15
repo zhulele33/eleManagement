@@ -1,7 +1,7 @@
 /* eslint-disable global-require,import/no-dynamic-require */
 import Demo from 'containers/Demo'
 import ComplexTable from 'containers/table/complexTable'
-import MeterDetail from 'containers/Detail'
+import MeterDetail from 'containers/Detail/index'
 import NotFound from 'component/NotFound.vue'
 
 const routes = [
