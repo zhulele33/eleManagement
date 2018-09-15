@@ -1,6 +1,6 @@
 <template>
     <div class="statusContainer">
-        <el-alert title="当电表处于以下状态时，自动对电表进行断电操作" type="info" :closable="false" show-icon></el-alert>
+        <el-alert title="当电表处于以下状态时，自动对电表进行通断电操作" type="info" :closable="false" show-icon></el-alert>
         <el-row justify="center" type="flex" class="checkedGroup" v-if="isLoaded">
             <el-checkbox-group v-model="type">
                 <el-checkbox label="电费欠费" name="arrearOff" v-if="arrearOff==1" checked></el-checkbox>

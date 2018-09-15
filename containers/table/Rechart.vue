@@ -5,6 +5,8 @@
                 <span class="label-name">表号:</span>
                 <span class="label-val">{{rechargeInfo.meterId}}</span>
             </dd>
+        </dl>
+        <dl class="label">
             <dd class="label-row">
                 <span class="label-name">电价:</span>
                 <span class="label-val">{{rechargeInfo.price}}</span>
@@ -14,7 +16,7 @@
             <el-form-item prop="rechargeMoney"
                 label="金额"
                 :rules="[
-                { pattern:/^[1-9]\d*(\.\d+)?$/, message: '请输入大于0的数字'},
+                { pattern:/^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/, message: '请输入大于0的数字'},
                 { required: true, message: '请输入金额', trigger: 'blur' }
                 ]"
             >

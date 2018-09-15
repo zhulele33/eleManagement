@@ -7,7 +7,7 @@
           <el-form-item prop="price"
                 label="单价"
                 :rules="[
-                { pattern:/^[1-9]\d*(\.\d+)?$/, message: '请输入大于0的数字'},
+                { pattern:/^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/, message: '请输入大于0的数字'},
                 { required: true, message: '请输入单价', trigger: 'blur' }
                 ]"
             >
