@@ -1,5 +1,6 @@
 /* eslint-disable global-require,import/no-dynamic-require */
 import Demo from 'containers/Demo'
+import ComplexTable from 'containers/table/complexTable'
 import NotFound from 'component/NotFound.vue'
 
 const routes = [
@@ -18,6 +19,11 @@ const routes = [
     name: 'demo',
     component: Demo,
   },
+  {
+    path: '/table',
+      name: 'eleTable',
+      component: ComplexTable
+  }
 ]
 
 function getPlatRoute(routers) {

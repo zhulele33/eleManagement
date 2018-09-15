@@ -29,5 +29,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
+    #app
+        padding 20px
 </style>

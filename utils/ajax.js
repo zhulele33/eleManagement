@@ -45,15 +45,10 @@ export default function (url, {
 
   return new Promise(((resolve, reject) => {
     Axios(config).then(({ data }) => {
-      if (data.code == 1 || data.code === 100000) {
+      if (data.code == 200) {
         if(data.data){
           return resolve(data.data)
-        }else {
-          return resolve(true)
         }
-
-      } else if (data.code === 302) {
-        window.location.href = data.data
       }
       return reject(data)
     }).catch(() => reject(new Error('接口请求出错')))
