@@ -2,7 +2,6 @@
   <div class="app-container">
     <div class="setting">
       <el-button style="margin-right: 10px;" type="primary" icon="el-icon-star-on" @click="handleAutoSetting()">自动通断电配置</el-button>
-    
     </div>
     <div class="filter-container">
       <el-input placeholder="小区" v-model="listQuery.address" style="width: 200px;" class="filter-item" @keyup="handleFilter"/>
@@ -16,9 +15,6 @@
       </el-select>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">搜索</el-button>
     </div>
-  
-        
-
     <el-table
       v-loading="listLoading"
       :key="tableKey"
@@ -34,7 +30,7 @@
       </el-table-column> -->
       <el-table-column label="房源地址" width="200" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.address }}</span>
+          <a href="" target="_blank">{{ scope.row.address }}</a>
         </template>
       </el-table-column>
       <el-table-column label="类型" width="100">
@@ -64,34 +60,34 @@
       </el-table-column>
       <el-table-column label="wifi状态" class-name="status-col" width="100">
         <template slot-scope="scope">
-          <span>{{scope.row.wifiStatus}}</span>
+          <span>{{scope.row.wifiStatus | wifiFilter}}</span>
         </template>
       </el-table-column>
       <el-table-column label="通电状态" class-name="status-col" width="100">
         <template slot-scope="scope">
-          <span>{{scope.row.status}}</span>
+          <span>{{scope.row.status | electrifyFilter}}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" min-width="230" class-name="small-margin">
         <template slot-scope="scope" >
           <el-button size="mini" type="primary" @click="handleUpdate(scope.row,'handleRecharge')">充值</el-button>
-          <el-button size="mini" type="success" @click="handleUpdate(scope.row,'handleRechargeLog')">充值记录</el-button>
-          <el-button type="primary" size="mini" @click="handleUpdate(scope.row,'handleEdit')">编辑</el-button>
-          <el-button type="primary" size="mini" @click="handleEleOnOrOff(scope.row,0)" v-if="scope.row.status==1">断电</el-button>
-          <el-button type="primary" size="mini" @click="handleEleOnOrOff(scope.row,1)" v-if="scope.row.status==0">通电</el-button>
+          <el-button size="mini" type="info" @click="handleUpdate(scope.row,'handleRechargeLog')">充值记录</el-button>
+          <el-button type="primary" size="mini" @click="handleUpdate(scope.row,'handleEdit')">改价</el-button>
+          <el-button type="danger" size="mini" @click="handleEleOnOrOff(scope.row,0)" v-if="scope.row.status==1">断电</el-button>
+          <el-button type="success" size="mini" @click="handleEleOnOrOff(scope.row,1)" v-if="scope.row.status==0">通电</el-button>
           <!-- <el-button size="mini" type="danger" @click="handleUpdate(scope.row)">删除</el-button> -->
         </template>
       </el-table-column>
     </el-table>
 
-    <div class="pagination-container">
-      <el-pagination :total="pages" background layout="total, prev, pager, next, jumper" @current-change="handleCurrentChange"/>
+    <div class="pagination-container" align="center">
+      <el-pagination :total="total" background layout="total, prev, pager, next, jumper" @current-change="handleCurrentChange"/>
     </div>
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" :width="dialogWidth" class="selfDialog">
       <Rechart v-if="dialogStatus==='handleRecharge'" :rechargeInfo="rechargeInfo" @closeDialog="closeDialog"/>
-      <RechartLog v-if="dialogStatus === 'handleRechargeLog'" :rechargeInfo="rechargeInfo" />
-      <MeterEdit v-if="dialogStatus === 'handleEdit'" :rechargeInfo="rechargeInfo" />
+      <RechartLog v-if="dialogStatus === 'handleRechargeLog'" :rechargeInfo="rechargeInfo" @closeDialog="closeDialog"/>
+      <MeterEdit v-if="dialogStatus === 'handleEdit'" :rechargeInfo="rechargeInfo" @closeDialog="closeDialog"/>
       <StatusOfSetting v-if="dialogStatus === 'handleAutoSetting'" @closeDialog="closeDialog"/>
     </el-dialog>
   </div>
@@ -105,35 +101,38 @@ import MeterEdit from './MeterEdit'
 import StatusOfSetting from './StatusOfSetting'
 
 const wifiOptions = [
-  { key: '1', display_name: '链接中' },
-  { key: '0', display_name: '已断开' },
+  { key: 1, display_name: '链接中' },
+  { key: 0, display_name: '已断开' },
 ]
 
 const ElectrifyOptions = [
-  { key: '1', display_name: '链接中' },
-  { key: '0', display_name: '已断开' },
+  { key: 1, display_name: '链接中' },
+  { key: 0, display_name: '已断开' },
 ]
 
 export default {
   name: 'ComplexTable',
   filters: {
-    // statusFilter(status) {
-    //   const statusMap = {
-    //     published: 'success',
-    //     draft: 'info',
-    //     deleted: 'danger'
-    //   }
-    //   return statusMap[status]
-    // },
-    // typeFilter(type) {
-    //   return calendarTypeKeyValue[type]
-    // }
+    wifiFilter(status) {
+      for(let i=0;i<wifiOptions.length;i++){
+        if(wifiOptions[i].key == status){
+          return wifiOptions[i].display_name
+        }
+      }
+    },
+    electrifyFilter(type) {
+      for(let i=0;i<ElectrifyOptions.length;i++){
+        if(ElectrifyOptions[i].key == type){
+          return ElectrifyOptions[i].display_name
+        }
+      }
+    }
   },
   data() {
     return {
       tableKey: 0,
       list: null,
-      pages: null,
+      total: null,
       listLoading: true,
       dialogWidth: '50%',
       listQuery: {
@@ -172,7 +171,7 @@ export default {
       this.listLoading = true
       this.Ajax('electrical/getMeterInfoList',{params:this.listQuery}).then(data => {
         this.list = data.list
-        this.pages = data.pages
+        this.total = data.total
           setTimeout(() => {
           this.listLoading = false
         }, 1.5 * 1000)
@@ -183,8 +182,9 @@ export default {
       this.getList()
     },
     handleEleOnOrOff(row,isTurnOn) {
-      this.Ajax('electrical/setStatus',{params:{status:isTurnOn,houseid:row.houseid}}).then(data => {
-        row.status = isTurnOn
+      this.Ajax('electrical/updateMeterStatus',{params:{status:isTurnOn,meterId:row.meterId}}).then(data => {
+        // row.status = isTurnOn
+        this.getList()
       })
     },
     handleAutoSetting() {
@@ -203,7 +203,7 @@ export default {
     },
     handleEdit(row){
       this.rechargeInfo = row
-      this.dialogWidth = '50%'
+      this.dialogWidth = '30%'
     },
     handleCurrentChange(val) {
       this.listQuery.pageNum = val
@@ -257,6 +257,8 @@ export default {
   margin-bottom 10px
 </style>
 <style lang="stylus">
+.app-container .el-table td
+  padding 10px 0
 .small-margin .el-button
   margin-bottom 10px
 .selfDialog

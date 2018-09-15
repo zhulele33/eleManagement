@@ -92,8 +92,7 @@ export default {
             postData.id = this.id
 
             this.Ajax('electrical/meter/cancel/updateCancel',{params:postData,methods:'post'}).then(data=>{
-                console.log(data)
-                this.$emit('closeDialog')
+                this.$emit('closeDialog',true)
             })
         }
     }

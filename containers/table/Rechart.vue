@@ -3,11 +3,11 @@
         <dl class="label">
             <dd class="label-row">
                 <span class="label-name">表号:</span>
-                <span class="label-val">{{rechargeInfo.eleNo}}</span>
+                <span class="label-val">{{rechargeInfo.meterId}}</span>
             </dd>
             <dd class="label-row">
                 <span class="label-name">电价:</span>
-                <span class="label-val">{{rechargeInfo.elePrice}}</span>
+                <span class="label-val">{{rechargeInfo.price}}</span>
             </dd>
         </dl>
         <el-form :model="rechargeForm" ref="rechargeForm" label-width="80px" class="rechartForm">

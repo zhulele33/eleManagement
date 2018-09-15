@@ -46,9 +46,7 @@ export default function (url, {
   return new Promise(((resolve, reject) => {
     Axios(config).then(({ data }) => {
       if (data.code == 200) {
-        if(data.data){
           return resolve(data.data)
-        }
       }
       return reject(data)
     }).catch(() => reject(new Error('接口请求出错')))

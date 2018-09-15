@@ -1,6 +1,7 @@
 /* eslint-disable global-require,import/no-dynamic-require */
 import Demo from 'containers/Demo'
 import ComplexTable from 'containers/table/complexTable'
+import MeterDetail from 'containers/Detail'
 import NotFound from 'component/NotFound.vue'
 
 const routes = [
@@ -20,9 +21,14 @@ const routes = [
     component: Demo,
   },
   {
-    path: '/table',
+    path: '/list',
       name: 'eleTable',
       component: ComplexTable
+  },
+  {
+    path: '/meters/:meterId',
+    name: 'meterDetail',
+    component: MeterDetail
   }
 ]
 

@@ -1,62 +1,67 @@
 <template>
+  <div>
     <el-table
       class="rechargelog"
       :data="list"
       v-loading="listLoading"
       style="width: 100%">
-      <el-table-column
-        prop="date"
-        label="日期"
-        width="180">
+      <el-table-column label="表号" width="150" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.meterId }}</span>
+        </template>
       </el-table-column>
-      <el-table-column
-        prop="name"
-        label="姓名"
-        width="180">
+      <el-table-column label="电价(元)" width="150" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.price }}</span>
+        </template>
       </el-table-column>
-      <el-table-column
-        prop="address"
-        label="地址">
+      <el-table-column label="金额" width="150" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.rechargePrice }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="日期" min-width="100" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.createTime }}</span>
+        </template>
       </el-table-column>
     </el-table>
+    <div class="pagination-container" align="center">
+      <el-pagination :total="pages" background layout="total, prev, pager, next, jumper" @current-change="handleCurrentChange"/>
+    </div>
+  </div>
 </template>
 <script>
 export default {
   data() {
     return {
-        list: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }],
+        listQuery: {
+          pageNum: 1,
+          meterId: undefined
+        },
+        pages: null,
+        list: null,
         listLoading: false
     };
   },
   props: ["rechargeInfo"],
   mounted() {
-    console.log(this.rechargeInfo);
-    this.getRechartLog(this.rechargeInfo.houseid)
+    this.listQuery.meterId = this.rechargeInfo.meterId
+    this.getRechartLog()
   },
   methods:{
-      getRechartLog(houseid){
-        this.listLoading = true
-        this.Ajax('electrical/getRechargeLog',{params:houseid}).then(data=>{
-            console.log(data)
-            this.listLoading = false
-        })
-      },
+    handleCurrentChange(val) {
+      this.listQuery.pageNum = val
+      this.getRechartLog()
+    },
+    getRechartLog(meterId){
+      this.listLoading = true
+      this.Ajax('electrical/renterRechargeRecord',{params:this.listQuery}).then(data=>{
+          this.list = data.list
+          this.pages = data.pages
+          this.listLoading = false
+      })
+    },
   }
 };
 </script>
