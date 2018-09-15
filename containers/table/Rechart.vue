@@ -91,7 +91,6 @@ export default {
         line-height 35px
         border-bottom: 1px solid #eee;
         .label-row
-            width 50%
             display flex
             .label-name
                 width 80px
